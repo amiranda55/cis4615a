@@ -1,3 +1,5 @@
+// Rule 10. Thread APIs
+// THI01_J. Do not invoke ThreadGroup methods
 public final class NetworkHandler {
   private final ExecutorService executor;
  
