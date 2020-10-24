@@ -1,4 +1,4 @@
-// Do not log unsanitized user input
+// Rule 00. Input Validation and Data Sanitization 
 if (loginSuccessful) {
   logger.severe("User login succeeded for: " + sanitizeUser(username));
 } else {
