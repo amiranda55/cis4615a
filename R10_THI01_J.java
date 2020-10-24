@@ -4,14 +4,29 @@ final class HandleRequest implements Runnable {
   }
 }
  
-public final class NetworkHandler implements Runnable {
-  private static ThreadGroup tg = new ThreadGroup("Chief");
+public final class NetworkHandler {
+  private final ExecutorService executor;
  
-  @Override public void run() {
-    new Thread(tg, new HandleRequest(), "thread1").start();
-    new Thread(tg, new HandleRequest(), "thread2").start();
-    new Thread(tg, new HandleRequest(), "thread3").start();
+  NetworkHandler(int poolSize) {
+    this.executor = Executors.newFixedThreadPool(poolSize);
   }
+ 
+  public void startThreads() {
+    for (int i = 0; i < 3; i++) {
+      executor.execute(new HandleRequest());
+    }
+  }
+ 
+  public void shutdownPool() {
+    executor.shutdown();
+  }
+ 
+  public static void main(String[] args)  {
+    NetworkHandler nh = new NetworkHandler(3);
+    nh.startThreads();
+    nh.shutdownPool();
+  }
+}
  
   public static void printActiveCount(int point) {
     System.out.println("Active Threads in Thread Group " + tg.getName() +
