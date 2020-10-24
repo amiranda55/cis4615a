@@ -1,5 +1,5 @@
 final class ControlledStop implements Runnable {
-  private boolean done = false;
+  private volatile boolean done = false;
   
   @Override public void run() {
     while (!done) {
